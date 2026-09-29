@@ -1,0 +1,29 @@
+// Prisma schema for AI Support Tool
+// Local dev: SQLite  |  Production (Vercel): PostgreSQL
+//
+// To switch to PostgreSQL:
+//   1. Change provider below to "postgresql"
+//   2. Update DATABASE_URL in .env to your Postgres connection string
+//   3. Run: npx prisma migrate dev --name init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Ticket {
+  id            String   @id @default(uuid())
+  clientName    String
+  text          String
+  priority      String?  // "низький" | "середній" | "високий"
+  category      String?  // "оплата" | "доставка" | "скарга" | "інше"
+  summary       String?  // 1-sentence AI summary
+  draftResponse String?  // AI-generated draft reply
+  createdAt     DateTime @default(now())
+
+  @@map("tickets")
+}
