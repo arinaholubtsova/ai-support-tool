@@ -99,6 +99,7 @@ export async function POST(req: NextRequest) {
       },
     })
 
+    
     return NextResponse.json(updatedTicket)
   } catch (error) {
     console.error('[POST /api/analyze]', error)
